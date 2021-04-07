@@ -8,6 +8,7 @@ cartoon filter
 //#include"opencv2/videoio.hpp"
 //#include "opencv2/core.hpp"
 #include"opencv2/opencv.hpp"
+#include"cartoon.h"
 #include <iostream>
 
 using namespace std;
@@ -48,7 +49,7 @@ int main(int argc, char* argv[])
         //create a blank output image, where we will draw
         cv::Mat displayedFrame(cameraFrame.size(), CV_8UC3);
 
-        //run th cartoonifier filter on camera frame
+        //run the cartoonifier filter on camera frame
         cartoonifyImage(cameraFrame, displayedFrame);
         //display the processed image onto the screen
         imshow("Cartoonifier", displayedFrame);
