@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+/.vs/OpenCVDemo/v16
+/x64/Debug
+/OpenCVDemo.sln
+*.vcxproj
+*.filters
+*.user
