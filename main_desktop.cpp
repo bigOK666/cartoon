@@ -1,25 +1,13 @@
 /*
-* decolor.cpp
-*
-* Author:
-* Siddharth Kherada <siddharthkherada27[at]gmail[dot]com>
-*
-* This tutorial demonstrates how to use OpenCV Decolorization Module.
-*
-* Input:
-* Color Image
-*
-* Output:
-* 1) Grayscale image
-* 2) Color boost image
+Mastering OpenCV with Practical Computer Vision Projects Chapter1
+cartoon filter
 *
 */
 
-//#include "opencv2/photo.hpp"
-//#include "opencv2/imgproc.hpp"
-//#include "opencv2/highgui.hpp"
-#include"opencv2/videoio.hpp"
-#include "opencv2/core.hpp"
+
+//#include"opencv2/videoio.hpp"
+//#include "opencv2/core.hpp"
+#include"opencv2/opencv.hpp"
 #include <iostream>
 
 using namespace std;
@@ -46,4 +34,33 @@ int main(int argc, char* argv[])
     //try to set the camera resolution
     camera.set(cv::CAP_PROP_FRAME_WIDTH, 640);
     camera.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
+
+    while (true) {
+        //grab the next camera frame
+        //cv::Mat is image container
+        cv::Mat cameraFrame;
+        //stream camera frame to cameraFrame
+        camera >> cameraFrame;
+        if (cameraFrame.empty()) {
+            std::cerr << "Error: could not grab a camera frame" << std::endl;
+            exit(1);
+        }
+        //create a blank output image, where we will draw
+        cv::Mat displayedFrame(cameraFrame.size(), CV_8UC3);
+
+        //run th cartoonifier filter on camera frame
+        cartoonifyImage(cameraFrame, displayedFrame);
+        //display the processed image onto the screen
+        imshow("Cartoonifier", displayedFrame);
+
+        //we need to wait at least 20ms so that the image can be displayed on the screen
+        //also check if a key was pressed in the GUI window
+        //the pressed key should be a char to support Linux
+        char keypress = cv::waitKey(20);
+        if (keypress == 27) {//Escape key
+            break;
+
+        }
+
+    }//end while
 }
